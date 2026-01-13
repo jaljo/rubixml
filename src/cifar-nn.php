@@ -16,16 +16,16 @@ srand(0);
 
 $samples = [];
 $labels = [];
-$LIM_SAMPLES = 200;
+$LIM_SAMPLES = 100;
 
-foreach (['cat', 'airplane'] as $class) {
-  foreach (glob(__DIR__ . '/../data/CIFAR-10-images/train/' . $class . '/*.jpg') as $idx => $file) {
-      if ($idx === $LIM_SAMPLES) {
-        break;
-      }
+foreach (['1', '0'] as $class) {
+  foreach (glob(__DIR__ . '/../data/mnist/trainingSet/trainingSet/' . $class . '/*.jpg') as $idx => $file) {
+      // if ($idx === $LIM_SAMPLES) {
+      //   break;
+      // }
 
       $samples[] = [imagecreatefromjpeg($file)];
-      $labels[] = $class;
+      $labels[] = $class === '1' ? 'one' : 'zero';
   }
 }
 
@@ -37,7 +37,7 @@ $dataset = Labeled::build($samples, $labels)
 
 $estimator = new MultilayerPerceptron(
   hiddenLayers: [
-    new Dense(200),
+    new Dense(128),
     // new Activation(new Sigmoid()),
   ],
 );
