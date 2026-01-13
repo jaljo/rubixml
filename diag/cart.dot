@@ -1,34 +1,34 @@
 digraph DecisionTree {
     rankdir=TB;
-    nodesep=2;
+    nodesep=0.5;
     ranksep=0.8;
 
     node [
         shape=box,
-        style=filled
-        fontname="Helvetica"
+        style=filled,
+        fontname="Helvetica",
     ];
 
     edge [
-        fontname="Helvetica"
+        fontname="Helvetica",
     ];
 
     A [label="W > 0.8", fillcolor="#FF0000"];
     B [label="Setosa", fillcolor="#1EFF00"];
-    C [label="L > 5.2" fillcolor="#FF0000"];
-    D [label="W > 1.7" fillcolor="#FFCC00"];
+    C [label="L > 5.2", fillcolor="#FF0000"];
+    D [label="W > 1.7", fillcolor="#FFCC00"];
     E [label="Virginica", fillcolor="#1EFF00"];
-    F [label="L > 4.9" fillcolor="#AEFF00"]
+    F [label="L > 4.9", fillcolor="#AEFF00"];
     G [label="Virginica", fillcolor="#1EFF00"];
-    H [label="Versicolor" fillcolor="#AEFF00"];
-    I [label="Virginica", fillcolor="#FF6200"]
+    H [label="Versicolor", fillcolor="#AEFF00"];
+    I [label="Virginica", fillcolor="#FF6200"];
 
     A -> B [label="F"];
     A -> C [label="T"];
     C -> D [label="F"];
     C -> E [label="T"];
-    D -> F [label="F"]
-    D -> G [label="T"]
-    F -> H [label="F"]
-    F -> I [label="T"]
+    D -> F [label="F"];
+    D -> G [label="T"];
+    F -> H [label="F"];
+    F -> I [label="T"];
 }
