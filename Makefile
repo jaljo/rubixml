@@ -18,6 +18,10 @@ run-iris-cart:
 run-iris-random-forest:
 	docker compose run --rm rubixml php src/iris-random-forest.php
 
+.PHONY: run-cifar-nn
+run-cifar-nn:
+	docker compose run --rm rubixml php src/cifar-nn.php
+
 .PHONY: shell
 shell:
 	docker compose run --rm rubixml bash
