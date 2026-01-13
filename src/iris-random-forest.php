@@ -1,0 +1,28 @@
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Rubix\ML\Classifiers\ClassificationTree;
+use Rubix\ML\Classifiers\RandomForest;
+use Rubix\ML\CrossValidation\Metrics\Accuracy;
+use Rubix\ML\Datasets\Labeled;
+use Rubix\ML\Extractors\CSV;
+use Rubix\ML\Transformers\NumericStringConverter;
+
+srand(0);
+
+$iterator = new CSV(__DIR__ . '/../data/iris/iris.data', header: false);
+$dataset = Labeled::fromIterator($iterator)
+    ->apply(new NumericStringConverter())
+    ->randomize();
+
+[ $train, $val ] = $dataset->stratifiedSplit(0.8);
+
+$estimator = new RandomForest(base: new ClassificationTree(), estimators: 100);
+$estimator->train($train);
+
+$predictions = $estimator->predict($val);
+
+$accuracy = (new Accuracy())->score($predictions, $val->labels());
+
+var_dump($accuracy);
