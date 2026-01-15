@@ -16,16 +16,24 @@ srand(0);
 
 $samples = [];
 $labels = [];
-$LIM_SAMPLES = 100;
+$LIM_SAMPLES = 2000;
 
-foreach (['1', '0'] as $class) {
+$classMap = [
+  '3' => 'three',
+  '9' => 'nine',
+  '0' => 'zero',
+  '8' => 'eight',
+  '5' => 'five',
+];
+
+foreach (['3', '5', '8', '9'] as $class) {
   foreach (glob(__DIR__ . '/../data/mnist/trainingSet/trainingSet/' . $class . '/*.jpg') as $idx => $file) {
-      // if ($idx === $LIM_SAMPLES) {
-      //   break;
-      // }
+      if ($idx === $LIM_SAMPLES) {
+        break;
+      }
 
       $samples[] = [imagecreatefromjpeg($file)];
-      $labels[] = $class === '1' ? 'one' : 'zero';
+      $labels[] = $classMap[$class];
   }
 }
 
@@ -37,8 +45,13 @@ $dataset = Labeled::build($samples, $labels)
 
 $estimator = new MultilayerPerceptron(
   hiddenLayers: [
+    new Dense(256),
+    new Activation(new Sigmoid()),
     new Dense(128),
-    // new Activation(new Sigmoid()),
+    new Activation(new Sigmoid()),
+    new Dense(64),
+    new Activation(new Sigmoid()),
+    new Dense(32),
   ],
 );
 $estimator->setLogger(new Screen());
