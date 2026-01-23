@@ -18,12 +18,12 @@ srand(0);
 
 $samples = [];
 $labels = [];
-$classMap = [ '0' => 'zero', '1' => 'one', '2' => 'two', '3' => 'three' ];
+$nf = new NumberFormatter('en-US', NumberFormatter::SPELLOUT);
 
-foreach (['0', '1', '2', '3'] as $class) {
+foreach (range(0, 9) as $class) {
   foreach (glob(__DIR__ . '/../data/mnist/trainingSet/trainingSet/' . $class . '/*.jpg') as $idx => $file) {
     $samples[] = [imagecreatefromjpeg($file)];
-    $labels[] = $classMap[$class];
+    $labels[] = $nf->format($class);
   }
 }
 
@@ -42,10 +42,10 @@ $model = new MultilayerPerceptron(
     new Activation(new ReLU()),
   ],
 );
-$persister = new Filesystem(__DIR__ . '/../model/mnist-nn.rbx');
+$persister = new Filesystem(__DIR__ . '/../model/mnist-nn-256-128.rbx');
 
 $estimator = new PersistentModel(base: $model, persister: $persister);
-$estimator->setLogger(new Screen());
+// $estimator->setLogger(new Screen()); // logger prevent model persistence
 $estimator->train($train);
 $estimator->save();
 

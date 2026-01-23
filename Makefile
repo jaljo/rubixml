@@ -26,6 +26,10 @@ run-mnist-cart:
 run-mnist-nn:
 	docker compose run --rm rubixml php src/mnist-nn.php
 
+.PHONY: run-mnist-predict
+run-mnist-nn-predict:
+	docker compose run --rm rubixml php src/mnist-nn-predict.php
+
 .PHONY: shell
 shell:
 	docker compose run --rm rubixml bash
