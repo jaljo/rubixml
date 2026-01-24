@@ -18,6 +18,18 @@ run-iris-cart:
 run-iris-random-forest:
 	docker compose run --rm rubixml php src/iris-random-forest.php
 
+.PHONY: run-mnist-cart
+run-mnist-cart:
+	docker compose run --rm rubixml php src/mnist-cart.php
+
+.PHONY: run-mnist-nn
+run-mnist-nn:
+	docker compose run --rm rubixml php src/mnist-nn.php
+
+.PHONY: run-mnist-predict
+run-mnist-nn-predict:
+	docker compose run --rm rubixml php src/mnist-nn-predict.php
+
 .PHONY: shell
 shell:
 	docker compose run --rm rubixml bash

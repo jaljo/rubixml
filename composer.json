@@ -1,6 +1,6 @@
 {
   "require": {
-    "rubix/ml": "^2.0"
+    "rubix/ml": "^2.5.3"
   },
   "autoload": {
     "psr-4": {
