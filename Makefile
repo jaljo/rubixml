@@ -6,6 +6,9 @@ build:
 install:
 	docker compose run --rm rubixml composer install
 
+.PHONY: dev
+dev: build install
+
 .PHONY: run-example
 run-example:
 	docker compose run --rm rubixml php src/example.php
